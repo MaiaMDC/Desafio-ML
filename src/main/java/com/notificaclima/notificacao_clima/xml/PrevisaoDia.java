@@ -8,10 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+
 @XmlAccessorType(XmlAccessType.FIELD)
 public class PrevisaoDia {
 
@@ -29,4 +26,55 @@ public class PrevisaoDia {
 
     @XmlElement(name = "iuv")
     private double iuv;
+
+    public PrevisaoDia() {
+    }
+
+    public PrevisaoDia(String dia, String tempo, int maxima, int minima, double iuv) {
+        this.dia = dia;
+        this.tempo = tempo;
+        this.maxima = maxima;
+        this.minima = minima;
+        this.iuv = iuv;
+    }
+
+    public String getDia() {
+        return dia;
+    }
+
+    public void setDia(String dia) {
+        this.dia = dia;
+    }
+
+    public String getTempo() {
+        return tempo;
+    }
+
+    public void setTempo(String tempo) {
+        this.tempo = tempo;
+    }
+
+    public int getMaxima() {
+        return maxima;
+    }
+
+    public void setMaxima(int maxima) {
+        this.maxima = maxima;
+    }
+
+    public int getMinima() {
+        return minima;
+    }
+
+    public void setMinima(int minima) {
+        this.minima = minima;
+    }
+
+    public double getIuv() {
+        return iuv;
+    }
+
+    public void setIuv(double iuv) {
+        this.iuv = iuv;
+    }
 }
