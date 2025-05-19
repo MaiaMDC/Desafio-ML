@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Notificações Climáticas</title>
+  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f2f5;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      color: #2c3e50;
+    }
+
+    #messages {
+      margin-top: 20px;
+      width: 100%;
+      max-width: 600px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      min-height: 200px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      font-family: monospace;
+    }
+
+    .msg {
+      margin-bottom: 20px;
+    }
+
+    .system {
+      color: #888;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Notificações Climáticas</h1>
+<div id="messages"><strong>Mensagens recebidas:</strong></div>
+
+<script>
+  const messagesDiv = document.getElementById('messages');
+
+  function appendMessage(text, isSystem = false) {
+    const p = document.createElement('pre');
+    p.className = isSystem ? 'system' : 'msg';
+    p.textContent = text;
+    messagesDiv.appendChild(p);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  }
+
+  const socket = new SockJS('http://localhost:8080/ws');
+  const stompClient = Stomp.over(socket);
+
+  stompClient.debug = function(str) {
+    console.log('[STOMP DEBUG]', str);
+  };
+
+  stompClient.connect({}, function(frame) {
+    appendMessage('✅ Conectado: ' + frame, true);
+
+    stompClient.subscribe('/notificacoes/clima', function(message) {
+      try {
+        const json = JSON.parse(message.body);
+        const formatted = JSON.stringify(json, null, 2); // Indenta com 2 espaços
+        appendMessage('📨 Mensagem:\n' + formatted);
+      } catch (e) {
+        appendMessage('📨 Mensagem não é JSON válido:\n' + message.body);
+      }
+    });
+  }, function(error) {
+    appendMessage('❌ Erro na conexão: ' + error, true);
+  });
+</script>
+</body>
+</html>

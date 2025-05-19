@@ -1,10 +1,9 @@
-package com.notificaclima.notificacao_clima.controllers.users.cptec;
+package com.notificaclima.notificacao_clima.controllers.cptec;
 
-import com.notificaclima.notificacao_clima.services.CptecClient;
+import com.notificaclima.notificacao_clima.services.CptecClientService;
 import com.notificaclima.notificacao_clima.xml.Cidade;
 import com.notificaclima.notificacao_clima.xml.PrevisaoCidade;
 import com.notificaclima.notificacao_clima.xml.PrevisaoOndas;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,29 +17,29 @@ import java.util.List;
 @RequestMapping("/clima")
 public class CptecController {
 
-    private final CptecClient cptecClient;
+    private final CptecClientService cptecClientService;
 
-    public CptecController(CptecClient cptecClient) {
-        this.cptecClient = cptecClient;
+    public CptecController(CptecClientService cptecClientService) {
+        this.cptecClientService = cptecClientService;
     }
 
-    @GetMapping("/city")
+    @GetMapping("/cidade")
     public List<Cidade> findCity(@RequestParam String nome) throws Exception {
-        List<Cidade> cidades = cptecClient.findCity(nome);
+        List<Cidade> cidades = cptecClientService.findCity(nome);
         cidades.forEach(c -> System.out.println("ID: " + c.getId() + ", Nome: " + c.getNome() + ", UF: " + c.getUf()));
         return cidades;
     }
 
     @GetMapping("/previsao")
     public ResponseEntity<PrevisaoCidade> getPrevisao(@RequestParam int cidadeId) throws Exception {
-            PrevisaoCidade previsao = cptecClient.getPrevisaoByCityId(cidadeId);
+            PrevisaoCidade previsao = cptecClientService.getPrevisaoByCityId(cidadeId);
             return ResponseEntity.ok(previsao);
     }
 
 
     @GetMapping("/ondas")
     public PrevisaoOndas getPrevisaoOndas( @RequestParam int cidadeId) throws Exception {
-        return cptecClient.getPrevisaoOndas(cidadeId);
+        return cptecClientService.getPrevisaoOndas(cidadeId);
     }
 
 }

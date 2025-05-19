@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Service
-public class CptecClient {
+public class CptecClientService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
