@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  notificacao-clima:
+    build: .
+    ports:
+      - "8080:8080"
+    container_name: notificacao-clima-app
+    environment:
+      - TZ=America/Sao_Paulo
