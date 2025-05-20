@@ -1,4 +1,4 @@
-package com.notificaclima.notificacao_clima.Infrastructure.websocket;
+package com.notificaclima.notificacao_clima.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

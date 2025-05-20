@@ -1,4 +1,4 @@
-package com.notificaclima.notificacao_clima.exceptionhandler;
+package com.notificaclima.notificacao_clima.exception;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;

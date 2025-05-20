@@ -1,7 +1,8 @@
-package com.notificaclima.notificacao_clima.services;
+package com.notificaclima.notificacao_clima.scheduler;
 
-import com.notificaclima.notificacao_clima.domain.users.Users;
-import com.notificaclima.notificacao_clima.domain.users.UsersRepository;
+import com.notificaclima.notificacao_clima.domain.Users;
+import com.notificaclima.notificacao_clima.domain.UsersRepository;
+import com.notificaclima.notificacao_clima.services.NotificacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

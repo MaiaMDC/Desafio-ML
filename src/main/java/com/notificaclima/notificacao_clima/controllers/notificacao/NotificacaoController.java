@@ -1,7 +1,7 @@
 package com.notificaclima.notificacao_clima.controllers.notificacao;
 
-import com.notificaclima.notificacao_clima.domain.users.Users;
-import com.notificaclima.notificacao_clima.domain.users.UsersRepository;
+import com.notificaclima.notificacao_clima.domain.Users;
+import com.notificaclima.notificacao_clima.domain.UsersRepository;
 import com.notificaclima.notificacao_clima.services.NotificacaoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

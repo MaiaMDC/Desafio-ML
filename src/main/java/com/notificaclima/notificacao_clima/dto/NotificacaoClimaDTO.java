@@ -8,6 +8,7 @@ import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class NotificacaoClimaDTO {
+    private String usuario;
     private String cidade;
     private String uf;
     private List<PrevisaoDTO> previsoes;
@@ -16,11 +17,20 @@ public class NotificacaoClimaDTO {
     public NotificacaoClimaDTO() {
     }
 
-    public NotificacaoClimaDTO(String cidade, String uf, List<PrevisaoDTO> previsoes, PrevisaoOndas ondas) {
+    public NotificacaoClimaDTO(String usuario, String cidade, String uf, List<PrevisaoDTO> previsoes, PrevisaoOndas ondas) {
+        this.usuario = usuario;
         this.cidade = cidade;
         this.uf = uf;
         this.previsoes = previsoes;
         this.ondas = ondas;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
     public String getCidade() {

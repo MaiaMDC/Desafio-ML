@@ -1,6 +1,6 @@
 package com.notificaclima.notificacao_clima.services;
 
-import com.notificaclima.notificacao_clima.domain.users.Users;
+import com.notificaclima.notificacao_clima.domain.Users;
 import com.notificaclima.notificacao_clima.dto.NotificacaoClimaDTO;
 import com.notificaclima.notificacao_clima.dto.PrevisaoDTO;
 import com.notificaclima.notificacao_clima.xml.Cidade;
@@ -45,6 +45,7 @@ public class NotificacaoService {
         }
 
         NotificacaoClimaDTO notificacao = new NotificacaoClimaDTO(
+                user.getNome(),
                 nomeCidade,
                 LocalDate.now().toString(),
                 previsoes,

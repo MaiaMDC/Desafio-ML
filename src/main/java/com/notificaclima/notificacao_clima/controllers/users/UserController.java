@@ -1,7 +1,7 @@
 package com.notificaclima.notificacao_clima.controllers.users;
 
-import com.notificaclima.notificacao_clima.domain.users.Users;
-import com.notificaclima.notificacao_clima.domain.users.UsersRepository;
+import com.notificaclima.notificacao_clima.domain.Users;
+import com.notificaclima.notificacao_clima.domain.UsersRepository;
 import com.notificaclima.notificacao_clima.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

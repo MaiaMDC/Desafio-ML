@@ -1,4 +1,4 @@
-package com.notificaclima.notificacao_clima.domain.users;
+package com.notificaclima.notificacao_clima.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
