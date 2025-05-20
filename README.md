@@ -1,4 +1,4 @@
-Fluxo da aplicação
+<h2 align="center">Fluxo da aplicação</h2>
 
 Abaixo o diagrama do fluxo de registro, chamadas de API referente a aplicação de envio de notificações do clima via websocket.
 
