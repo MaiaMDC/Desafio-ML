@@ -2,7 +2,6 @@ package com.notificaclima.notificacao_clima.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.notificaclima.notificacao_clima.xml.PrevisaoOndas;
-import lombok.Data;
 
 import java.util.List;
 

@@ -11,14 +11,14 @@ import java.util.stream.Collectors;
 @Service
 public class ConverterService {
 
-    public List<PrevisaoDTO> paraPrevisaoDTOs(PrevisaoCidade previsaoCidade) {
+    public List<PrevisaoDTO> convertToForecastDTOs(PrevisaoCidade previsaoCidade) {
         return previsaoCidade.getPrevisoes()
                 .stream()
-                .map(this::paraDTO)
+                .map(this::convertToForecastDTO)
                 .collect(Collectors.toList());
     }
 
-    private PrevisaoDTO paraDTO(PrevisaoDia dia) {
+    public PrevisaoDTO convertToForecastDTO(PrevisaoDia dia) {
         PrevisaoDTO dto = new PrevisaoDTO();
         dto.setData(dia.getDia());
         dto.setMinima(dia.getMinima());

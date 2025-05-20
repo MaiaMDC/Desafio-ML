@@ -37,7 +37,7 @@ public class NotificacaoService {
         Cidade cidade = cidades.get(0);
         int cidadeId = cidade.getId();
 
-        List<PrevisaoDTO> previsoes = converter.paraPrevisaoDTOs(cptecClient.getPrevisaoByCityId(cidadeId));
+        List<PrevisaoDTO> previsoes = converter.convertToForecastDTOs(cptecClient.getPrevisaoByCityId(cidadeId));
 
         PrevisaoOndas ondas = null;
         if (user.getIsCoastline()) {
@@ -52,7 +52,6 @@ public class NotificacaoService {
                 ondas
         );
 
-        System.out.println(notificacao);
         messagingTemplate.convertAndSend("/notificacoes/clima", notificacao);
     }
 

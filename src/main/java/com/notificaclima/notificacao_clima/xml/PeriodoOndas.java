@@ -4,12 +4,8 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -27,5 +23,53 @@ public class PeriodoOndas {
     private double vento;
     @XmlElement(name = "vento_dir")
     private String ventoDir;
+
+    public String getDia() {
+        return dia;
+    }
+
+    public void setDia(String dia) {
+        this.dia = dia;
+    }
+
+    public String getAgitacao() {
+        return agitacao;
+    }
+
+    public void setAgitacao(String agitacao) {
+        this.agitacao = agitacao;
+    }
+
+    public double getAltura() {
+        return altura;
+    }
+
+    public void setAltura(double altura) {
+        this.altura = altura;
+    }
+
+    public String getDirecao() {
+        return direcao;
+    }
+
+    public void setDirecao(String direcao) {
+        this.direcao = direcao;
+    }
+
+    public double getVento() {
+        return vento;
+    }
+
+    public void setVento(double vento) {
+        this.vento = vento;
+    }
+
+    public String getVentoDir() {
+        return ventoDir;
+    }
+
+    public void setVentoDir(String ventoDir) {
+        this.ventoDir = ventoDir;
+    }
 }
 
