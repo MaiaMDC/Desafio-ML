@@ -2,8 +2,8 @@ package com.notificaclima.notificacao_clima.test_services;
 
 import com.notificaclima.notificacao_clima.dto.PrevisaoDTO;
 import com.notificaclima.notificacao_clima.services.ConverterService;
-import com.notificaclima.notificacao_clima.xml.PrevisaoCidade;
-import com.notificaclima.notificacao_clima.xml.PrevisaoDia;
+import com.notificaclima.notificacao_clima.cptec.model.PrevisaoCidade;
+import com.notificaclima.notificacao_clima.cptec.model.PrevisaoDia;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,17 +16,14 @@ public class ConverterServiceTest {
 
     @Test
     public void testConvertToForecastDTO() {
-        // Arrange
         PrevisaoDia dia = new PrevisaoDia();
         dia.setDia("2025-05-20");
         dia.setMinima(15);
         dia.setMaxima(25);
         dia.setTempo("Ensolarado");
 
-        // Act
         PrevisaoDTO dto = converterService.convertToForecastDTO(dia);
 
-        // Assert
         assertEquals("2025-05-20", dto.getData());
         assertEquals(15, dto.getMinima());
         assertEquals(25, dto.getMaxima());
@@ -35,7 +32,6 @@ public class ConverterServiceTest {
 
     @Test
     public void testConvertToForecastDTOs() {
-        // Arrange
         PrevisaoDia dia = new PrevisaoDia();
         dia.setDia("2025-05-21");
         dia.setMinima(17);
@@ -45,10 +41,8 @@ public class ConverterServiceTest {
         PrevisaoCidade previsaoCidade = new PrevisaoCidade();
         previsaoCidade.setPrevisoes(Collections.singletonList(dia));
 
-        // Act
         List<PrevisaoDTO> dtos = converterService.convertToForecastDTOs(previsaoCidade);
 
-        // Assert
         assertNotNull(dtos);
         assertEquals(1, dtos.size());
         PrevisaoDTO dto = dtos.get(0);

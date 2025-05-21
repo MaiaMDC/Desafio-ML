@@ -1,7 +1,7 @@
 package com.notificaclima.notificacao_clima.scheduler;
 
-import com.notificaclima.notificacao_clima.domain.Users;
-import com.notificaclima.notificacao_clima.domain.UsersRepository;
+import com.notificaclima.notificacao_clima.entity.Users;
+import com.notificaclima.notificacao_clima.repository.UsersRepository;
 import com.notificaclima.notificacao_clima.services.CptecClientService;
 import com.notificaclima.notificacao_clima.services.NotificacaoService;
 import org.slf4j.Logger;
@@ -25,7 +25,7 @@ public class NotificacaoScheduler {
 
     private static final Logger log = LoggerFactory.getLogger(CptecClientService.class);
 
-    @Scheduled(cron = "0 * * * * *") // Executa a cada minuto
+    @Scheduled(cron = "0 * * * * *")
     public void verificarAgendamentos() {
         LocalTime agora = LocalTime.now().truncatedTo(ChronoUnit.MINUTES);
 

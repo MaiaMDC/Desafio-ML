@@ -1,7 +1,7 @@
 package com.notificaclima.notificacao_clima.test_services;
 
-import com.notificaclima.notificacao_clima.domain.Users;
-import com.notificaclima.notificacao_clima.domain.UsersRepository;
+import com.notificaclima.notificacao_clima.entity.Users;
+import com.notificaclima.notificacao_clima.repository.UsersRepository;
 import com.notificaclima.notificacao_clima.services.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;

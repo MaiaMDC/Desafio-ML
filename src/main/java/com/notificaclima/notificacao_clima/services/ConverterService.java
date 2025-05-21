@@ -1,8 +1,8 @@
 package com.notificaclima.notificacao_clima.services;
 
 import com.notificaclima.notificacao_clima.dto.PrevisaoDTO;
-import com.notificaclima.notificacao_clima.xml.PrevisaoCidade;
-import com.notificaclima.notificacao_clima.xml.PrevisaoDia;
+import com.notificaclima.notificacao_clima.cptec.model.PrevisaoCidade;
+import com.notificaclima.notificacao_clima.cptec.model.PrevisaoDia;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

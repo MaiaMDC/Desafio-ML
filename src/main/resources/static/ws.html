@@ -73,7 +73,7 @@
     stompClient.subscribe('/notificacoes/clima', function(message) {
       try {
         const json = JSON.parse(message.body);
-        const formatted = JSON.stringify(json, null, 2); // Indenta com 2 espaços
+        const formatted = JSON.stringify(json, null, 2);
         appendMessage('📨 Mensagem:\n' + formatted);
       } catch (e) {
         appendMessage('📨 Mensagem não é JSON válido:\n' + message.body);

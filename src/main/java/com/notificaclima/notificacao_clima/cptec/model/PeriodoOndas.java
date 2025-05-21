@@ -1,4 +1,4 @@
-package com.notificaclima.notificacao_clima.xml;
+package com.notificaclima.notificacao_clima.cptec.model;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;

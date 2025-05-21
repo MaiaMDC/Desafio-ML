@@ -1,14 +1,14 @@
 package com.notificaclima.notificacao_clima.test_services;
 
-import com.notificaclima.notificacao_clima.domain.Users;
+import com.notificaclima.notificacao_clima.entity.Users;
 import com.notificaclima.notificacao_clima.dto.NotificacaoClimaDTO;
 import com.notificaclima.notificacao_clima.dto.PrevisaoDTO;
 import com.notificaclima.notificacao_clima.services.ConverterService;
 import com.notificaclima.notificacao_clima.services.CptecClientService;
 import com.notificaclima.notificacao_clima.services.NotificacaoService;
-import com.notificaclima.notificacao_clima.xml.Cidade;
-import com.notificaclima.notificacao_clima.xml.PrevisaoCidade;
-import com.notificaclima.notificacao_clima.xml.PrevisaoOndas;
+import com.notificaclima.notificacao_clima.cptec.model.Cidade;
+import com.notificaclima.notificacao_clima.cptec.model.PrevisaoCidade;
+import com.notificaclima.notificacao_clima.cptec.model.PrevisaoOndas;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -43,37 +43,31 @@ class NotificacaoServiceTest {
 
     @Test
     void deveMontarENotificarUsuarioCorretamente() throws Exception {
-        // Arrange - Criar um usuário fictício
         Users user = new Users();
         user.setNome("João");
         user.setCidade("Santos");
         user.setIsOpt(true);
-        user.setIsCoastline(true); // litoral, para testar PrevisaoOndas
+        user.setIsCoastline(true);
 
-        // Cidade encontrada
         Cidade cidade = new Cidade();
         cidade.setId(123);
         cidade.setNome("Santos");
 
         when(cptecClient.findCity("Santos")).thenReturn(List.of(cidade));
 
-        // Simula a previsão
         PrevisaoDTO previsao = new PrevisaoDTO();
         previsao.setData("2025-05-20");
         previsao.setMinima(15);
         previsao.setMaxima(25);
         previsao.setTempo("Ensolarado");
-        when(cptecClient.getPrevisaoByCityId(123)).thenReturn(new PrevisaoCidade()); // retornará um objeto vazio
+        when(cptecClient.getPrevisaoByCityId(123)).thenReturn(new PrevisaoCidade());
         when(converter.convertToForecastDTOs(any())).thenReturn(List.of(previsao));
 
-        // Simula previsão de ondas
         PrevisaoOndas ondas = new PrevisaoOndas();
         when(cptecClient.getPrevisaoOndas(123)).thenReturn(ondas);
 
-        // Act - Chama o método
         notificacaoService.enviarNotificacao(user);
 
-        // Assert - Verifica se o template foi chamado corretamente
         ArgumentCaptor<NotificacaoClimaDTO> captor = ArgumentCaptor.forClass(NotificacaoClimaDTO.class);
         verify(messagingTemplate).convertAndSend(eq("/notificacoes/clima"), captor.capture());
 

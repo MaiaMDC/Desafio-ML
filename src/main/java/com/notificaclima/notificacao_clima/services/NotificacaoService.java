@@ -1,10 +1,10 @@
 package com.notificaclima.notificacao_clima.services;
 
-import com.notificaclima.notificacao_clima.domain.Users;
+import com.notificaclima.notificacao_clima.entity.Users;
 import com.notificaclima.notificacao_clima.dto.NotificacaoClimaDTO;
 import com.notificaclima.notificacao_clima.dto.PrevisaoDTO;
-import com.notificaclima.notificacao_clima.xml.Cidade;
-import com.notificaclima.notificacao_clima.xml.PrevisaoOndas;
+import com.notificaclima.notificacao_clima.cptec.model.Cidade;
+import com.notificaclima.notificacao_clima.cptec.model.PrevisaoOndas;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 

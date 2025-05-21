@@ -1,9 +1,9 @@
 package com.notificaclima.notificacao_clima.controllers.cptec;
 
 import com.notificaclima.notificacao_clima.services.CptecClientService;
-import com.notificaclima.notificacao_clima.xml.Cidade;
-import com.notificaclima.notificacao_clima.xml.PrevisaoCidade;
-import com.notificaclima.notificacao_clima.xml.PrevisaoOndas;
+import com.notificaclima.notificacao_clima.cptec.model.Cidade;
+import com.notificaclima.notificacao_clima.cptec.model.PrevisaoCidade;
+import com.notificaclima.notificacao_clima.cptec.model.PrevisaoOndas;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +26,6 @@ public class CptecController {
     @GetMapping("/cidade")
     public List<Cidade> findCity(@RequestParam String nome) throws Exception {
         List<Cidade> cidades = cptecClientService.findCity(nome);
-        cidades.forEach(c -> System.out.println("ID: " + c.getId() + ", Nome: " + c.getNome() + ", UF: " + c.getUf()));
         return cidades;
     }
 

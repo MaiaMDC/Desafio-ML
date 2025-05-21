@@ -1,4 +1,4 @@
-package com.notificaclima.notificacao_clima.domain;
+package com.notificaclima.notificacao_clima.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
