@@ -7,8 +7,8 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalTime;
 
 @Entity
-@Table(name = "users")
-public class Users {
+@Table(name = "usuarios")
+public class Usuarios {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,21 +24,21 @@ public class Users {
     private LocalTime horarioNotificacao;
 
     @NotNull(message = "O campo opt é obrigatório")
-    private Boolean isOpt;
+    private Boolean Opt;
 
     @NotNull(message = "O campo isCoastline é obrigatório")
-    private Boolean isCoastline;
+    private Boolean litoral;
 
-    public Users() {
+    public Usuarios() {
     }
 
-    public Users(Long id, String nome, String cidade, LocalTime horarioNotificacao, Boolean isOpt, Boolean isCoastline) {
+    public Usuarios(Long id, String nome, String cidade, LocalTime horarioNotificacao, Boolean Opt, Boolean litoral) {
         this.id = id;
         this.nome = nome;
         this.cidade = cidade;
         this.horarioNotificacao = horarioNotificacao;
-        this.isOpt = isOpt;
-        this.isCoastline = isCoastline;
+        this.Opt = Opt;
+        this.litoral = litoral;
     }
 
     public Long getId() {
@@ -73,19 +73,19 @@ public class Users {
         this.horarioNotificacao = horarioNotificacao;
     }
 
-    public Boolean getIsOpt() {
-        return isOpt;
+    public Boolean getOpt() {
+        return Opt;
     }
 
-    public void setIsOpt(Boolean opt) {
-        this.isOpt = opt;
+    public void setOpt(Boolean opt) {
+        this.Opt = opt;
     }
 
-    public Boolean getIsCoastline() {
-        return isCoastline;
+    public Boolean getLitoral() {
+        return litoral;
     }
 
-    public void setIsCoastline(Boolean isCoastline) {
-        this.isCoastline = isCoastline;
+    public void setLitoral(Boolean litoral) {
+        this.litoral = litoral;
     }
 }

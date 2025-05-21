@@ -20,7 +20,7 @@ import java.util.List;
 import org.springframework.retry.annotation.Recover;
 
 @Service
-public class CptecClientService {
+public class CptecService {
 
     @Value("${cptec.api.base-url}")
     private String baseUrl;
@@ -30,10 +30,10 @@ public class CptecClientService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
-    private static final Logger log = LoggerFactory.getLogger(CptecClientService.class);
+    private static final Logger log = LoggerFactory.getLogger(CptecService.class);
 
     @Retryable(value = { Exception.class }, maxAttempts = 3, backoff = @Backoff(delay = 5000))
-    public List<Cidade> findCity(String nome) throws Exception {
+    public List<Cidade> buscaCidade(String nome) throws Exception {
         String url = baseUrl + URLEncoder.encode(nome, StandardCharsets.UTF_8);
 
         JAXBContext context = JAXBContext.newInstance(ListaCidades.class);
@@ -46,13 +46,13 @@ public class CptecClientService {
     }
 
     @Recover
-    public List<Cidade> recoverFindCity(Exception e, String nome) {
-        log.error("Fallback ativado para findCity com nome: {}. Erro: {}", nome, e.getMessage());
+    public List<Cidade> recoverBuscaCidade(Exception e, String nome) {
+        log.error("Fallback ativado para recoverBuscaCidade com nome: {}. Erro: {}", nome, e.getMessage());
         return Collections.emptyList();
     }
 
     @Retryable(value = { Exception.class }, maxAttempts = 3, backoff = @Backoff(delay = 5000))
-    public PrevisaoCidade getPrevisaoByCityId(int cidadeId) throws Exception {
+    public PrevisaoCidade previsaoPelaCidadeId(int cidadeId) throws Exception {
         String url = previsaoUrl + cidadeId + "/previsao.xml";
 
         URL apiUrl = new URL(url);
@@ -62,13 +62,13 @@ public class CptecClientService {
     }
 
     @Recover
-    public PrevisaoCidade recoverGetPrevisaoByCityId(Exception e, int cidadeId) {
-        log.error("Fallback ativado para getPrevisaoByCityId com cidadeId: {}. Erro: {}", cidadeId, e.getMessage());
+    public PrevisaoCidade recoverPrevisaoPelaCidadeId(Exception e, int cidadeId) {
+        log.error("Fallback ativado para previsaoPelaCidadeId com cidadeId: {}. Erro: {}", cidadeId, e.getMessage());
         return null;
     }
 
     @Retryable(value = { Exception.class }, maxAttempts = 3, backoff = @Backoff(delay = 5000))
-    public PrevisaoOndas getPrevisaoOndas(int cidadeId) throws Exception {
+    public PrevisaoOndas previsaoOndas(int cidadeId) throws Exception {
         String url = previsaoUrl + cidadeId + "/dia/0/ondas.xml";
 
         JAXBContext context = JAXBContext.newInstance(PrevisaoOndas.class);
@@ -80,8 +80,8 @@ public class CptecClientService {
     }
 
     @Recover
-    public PrevisaoOndas recoverGetPrevisaoOndas(Exception e, int cidadeId) {
-        log.error("Fallback ativado para getPrevisaoOndas com cidadeId: {}. Erro: {}", cidadeId, e.getMessage());
+    public PrevisaoOndas recoverPrevisaoOndas(Exception e, int cidadeId) {
+        log.error("Fallback ativado para previsaoOndas com cidadeId: {}. Erro: {}", cidadeId, e.getMessage());
         return null;
     }
 }

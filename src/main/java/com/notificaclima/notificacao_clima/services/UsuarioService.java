@@ -1,47 +1,47 @@
 package com.notificaclima.notificacao_clima.services;
 
-import com.notificaclima.notificacao_clima.entity.Users;
-import com.notificaclima.notificacao_clima.repository.UsersRepository;
+import com.notificaclima.notificacao_clima.entity.Usuarios;
+import com.notificaclima.notificacao_clima.repository.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService {
+public class UsuarioService {
 
     @Autowired
-    private UsersRepository usersRepository;
+    private UsuarioRepository usuarioRepository;
 
-    public Users buscarUsuarioPorId(Long id) {
-        return usersRepository.findById(id)
+    public Usuarios buscarUsuarioPorId(Long id) {
+        return usuarioRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com id: " + id));
     }
 
-    public Users atualizarUsuario(Long id, Users updatedUser) {
-        Users usuario = usersRepository.findById(id)
+    public Usuarios atualizarUsuario(Long id, Usuarios updatedUser) {
+        Usuarios usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com id: " + id));
 
         usuario.setNome(updatedUser.getNome());
         usuario.setCidade(updatedUser.getCidade());
         usuario.setHorarioNotificacao(updatedUser.getHorarioNotificacao());
-        usuario.setIsOpt(updatedUser.getIsOpt());
-        usuario.setIsCoastline(updatedUser.getIsCoastline());
+        usuario.setOpt(updatedUser.getOpt());
+        usuario.setLitoral(updatedUser.getLitoral());
 
-        return usersRepository.save(usuario);
+        return usuarioRepository.save(usuario);
     }
 
     public void alterarOpt(Long id, Boolean opt) {
-        Users usuario = usersRepository.findById(id)
+        Usuarios usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com id: " + id));
 
-        usuario.setIsOpt(opt);
-        usersRepository.save(usuario);
+        usuario.setOpt(opt);
+        usuarioRepository.save(usuario);
     }
 
     public void deletarUsuario(Long id) {
-        if (!usersRepository.existsById(id)) {
+        if (!usuarioRepository.existsById(id)) {
             throw new EntityNotFoundException("Usuário não encontrado com id: " + id);
         }
-        usersRepository.deleteById(id);
+        usuarioRepository.deleteById(id);
     }
 }

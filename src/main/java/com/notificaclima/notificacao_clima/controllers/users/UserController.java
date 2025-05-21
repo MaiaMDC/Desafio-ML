@@ -1,8 +1,8 @@
 package com.notificaclima.notificacao_clima.controllers.users;
 
-import com.notificaclima.notificacao_clima.entity.Users;
-import com.notificaclima.notificacao_clima.repository.UsersRepository;
-import com.notificaclima.notificacao_clima.services.UserService;
+import com.notificaclima.notificacao_clima.entity.Usuarios;
+import com.notificaclima.notificacao_clima.repository.UsuarioRepository;
+import com.notificaclima.notificacao_clima.services.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,46 +17,46 @@ import java.util.Map;
 public class UserController {
 
     @Autowired
-    private UsersRepository usersRepository;
+    private UsuarioRepository usuarioRepository;
 
     @Autowired
-    private UserService userService;
+    private UsuarioService usuarioService;
 
     @PostMapping
-    public ResponseEntity<Users> registerUser(@Valid @RequestBody Users users){
-        Users savedUser = usersRepository.save(users);
+    public ResponseEntity<Usuarios> cadastraUsuario(@Valid @RequestBody Usuarios usuarios){
+        Usuarios savedUser = usuarioRepository.save(usuarios);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
 
     @GetMapping
-    public List<Users> getAllUser() {
-        return usersRepository.findAll();
+    public List<Usuarios> buscaTodosUsuarios() {
+        return usuarioRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Users> getUser(@PathVariable Long id) {
-        Users user = userService.buscarUsuarioPorId(id);
+    public ResponseEntity<Usuarios> getUser(@PathVariable Long id) {
+        Usuarios user = usuarioService.buscarUsuarioPorId(id);
         return ResponseEntity.ok(user);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Users> atualizarUsuario(@PathVariable Long id,@Valid @RequestBody Users updatedUser) {
-        Users usuarioAtualizado = userService.atualizarUsuario(id, updatedUser);
+    public ResponseEntity<Usuarios> atualizaUsuario(@PathVariable Long id, @Valid @RequestBody Usuarios updatedUser) {
+        Usuarios usuarioAtualizado = usuarioService.atualizarUsuario(id, updatedUser);
         return ResponseEntity.ok(usuarioAtualizado);
     }
 
     @PutMapping("/{id}/opt")
-    public ResponseEntity<String> changeOpt(@PathVariable Long id,@Valid @RequestBody Map<String, Boolean> body) {
+    public ResponseEntity<String> alteraOpt(@PathVariable Long id, @Valid @RequestBody Map<String, Boolean> body) {
         if (!body.containsKey("opt")) {
             return ResponseEntity.badRequest().body("Campo 'opt' é obrigatório");
         }
-        userService.alterarOpt(id, body.get("opt"));
+        usuarioService.alterarOpt(id, body.get("opt"));
         return ResponseEntity.ok("Status atualizado com sucesso");
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
-        userService.deletarUsuario(id);
+    public ResponseEntity<?> deletaUsuario(@PathVariable Long id) {
+        usuarioService.deletarUsuario(id);
         return ResponseEntity.noContent().build();
     }
 

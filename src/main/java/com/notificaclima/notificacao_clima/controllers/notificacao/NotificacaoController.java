@@ -1,7 +1,7 @@
 package com.notificaclima.notificacao_clima.controllers.notificacao;
 
-import com.notificaclima.notificacao_clima.entity.Users;
-import com.notificaclima.notificacao_clima.repository.UsersRepository;
+import com.notificaclima.notificacao_clima.entity.Usuarios;
+import com.notificaclima.notificacao_clima.repository.UsuarioRepository;
 import com.notificaclima.notificacao_clima.services.NotificacaoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,17 +15,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class NotificacaoController {
 
     private final NotificacaoService notificacaoService;
-    private final UsersRepository usersRepository;
+    private final UsuarioRepository usuarioRepository;
 
-    public NotificacaoController(NotificacaoService notificacaoService, UsersRepository usersRepository) {
+    public NotificacaoController(NotificacaoService notificacaoService, UsuarioRepository usuarioRepository) {
         this.notificacaoService = notificacaoService;
-        this.usersRepository = usersRepository;
+        this.usuarioRepository = usuarioRepository;
     }
 
     @GetMapping("/enviar/{nomeCidade}")
     public ResponseEntity<String> enviarNotificacao(@PathVariable String nomeCidade) {
         try {
-            Users user = usersRepository.findByCidade(nomeCidade);
+            Usuarios user = usuarioRepository.findByCidade(nomeCidade);
             if (user == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body("Usuário com cidade '" + nomeCidade + "' não encontrado.");

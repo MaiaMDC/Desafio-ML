@@ -1,6 +1,6 @@
 package com.notificaclima.notificacao_clima.controllers.cptec;
 
-import com.notificaclima.notificacao_clima.services.CptecClientService;
+import com.notificaclima.notificacao_clima.services.CptecService;
 import com.notificaclima.notificacao_clima.cptec.model.Cidade;
 import com.notificaclima.notificacao_clima.cptec.model.PrevisaoCidade;
 import com.notificaclima.notificacao_clima.cptec.model.PrevisaoOndas;
@@ -17,28 +17,28 @@ import java.util.List;
 @RequestMapping("/clima")
 public class CptecController {
 
-    private final CptecClientService cptecClientService;
+    private final CptecService cptecService;
 
-    public CptecController(CptecClientService cptecClientService) {
-        this.cptecClientService = cptecClientService;
+    public CptecController(CptecService cptecService) {
+        this.cptecService = cptecService;
     }
 
     @GetMapping("/cidade")
-    public List<Cidade> findCity(@RequestParam String nome) throws Exception {
-        List<Cidade> cidades = cptecClientService.findCity(nome);
+    public List<Cidade> buscaCidadePorNome(@RequestParam String nome) throws Exception {
+        List<Cidade> cidades = cptecService.buscaCidade(nome);
         return cidades;
     }
 
     @GetMapping("/previsao")
-    public ResponseEntity<PrevisaoCidade> getPrevisao(@RequestParam int cidadeId) throws Exception {
-            PrevisaoCidade previsao = cptecClientService.getPrevisaoByCityId(cidadeId);
+    public ResponseEntity<PrevisaoCidade> previsaoPorCidadeId(@RequestParam int cidadeId) throws Exception {
+            PrevisaoCidade previsao = cptecService.previsaoPelaCidadeId(cidadeId);
             return ResponseEntity.ok(previsao);
     }
 
 
     @GetMapping("/ondas")
-    public PrevisaoOndas getPrevisaoOndas( @RequestParam int cidadeId) throws Exception {
-        return cptecClientService.getPrevisaoOndas(cidadeId);
+    public PrevisaoOndas previsaoOndasPorCidadeId(@RequestParam int cidadeId) throws Exception {
+        return cptecService.previsaoOndas(cidadeId);
     }
 
 }

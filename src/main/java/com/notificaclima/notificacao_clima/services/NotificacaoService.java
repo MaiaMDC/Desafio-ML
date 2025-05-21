@@ -1,6 +1,6 @@
 package com.notificaclima.notificacao_clima.services;
 
-import com.notificaclima.notificacao_clima.entity.Users;
+import com.notificaclima.notificacao_clima.entity.Usuarios;
 import com.notificaclima.notificacao_clima.dto.NotificacaoClimaDTO;
 import com.notificaclima.notificacao_clima.dto.PrevisaoDTO;
 import com.notificaclima.notificacao_clima.cptec.model.Cidade;
@@ -15,21 +15,21 @@ import java.util.List;
 public class NotificacaoService {
 
     private final SimpMessagingTemplate messagingTemplate;
-    private final CptecClientService cptecClient;
-    private final ConverterService converter;
+    private final CptecService cptecClient;
+    private final ConversorService converter;
 
     public NotificacaoService(SimpMessagingTemplate messagingTemplate,
-                              CptecClientService cptecClient,
-                              ConverterService converter) {
+                              CptecService cptecClient,
+                              ConversorService converter) {
         this.messagingTemplate = messagingTemplate;
         this.cptecClient = cptecClient;
         this.converter = converter;
     }
 
-    public void enviarNotificacao(Users user) throws Exception {
+    public void enviarNotificacao(Usuarios user) throws Exception {
         String nomeCidade = user.getCidade();
 
-        List<Cidade> cidades = cptecClient.findCity(nomeCidade);
+        List<Cidade> cidades = cptecClient.buscaCidade(nomeCidade);
         if (cidades.isEmpty()) {
             throw new RuntimeException("Cidade não encontrada: " + nomeCidade);
         }
@@ -37,17 +37,17 @@ public class NotificacaoService {
         Cidade cidade = cidades.get(0);
         int cidadeId = cidade.getId();
 
-        List<PrevisaoDTO> previsoes = converter.convertToForecastDTOs(cptecClient.getPrevisaoByCityId(cidadeId));
+        List<PrevisaoDTO> previsoes = converter.convertToForecastDTOs(cptecClient.previsaoPelaCidadeId(cidadeId));
 
         PrevisaoOndas ondas = null;
-        if (user.getIsCoastline()) {
-            ondas = cptecClient.getPrevisaoOndas(cidadeId);
+        if (user.getLitoral()) {
+            ondas = cptecClient.previsaoOndas(cidadeId);
         }
 
         NotificacaoClimaDTO notificacao = new NotificacaoClimaDTO(
                 user.getNome(),
                 nomeCidade,
-                LocalDate.now().toString(),
+                cidade.getUf(),
                 previsoes,
                 ondas
         );

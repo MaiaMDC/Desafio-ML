@@ -1,8 +1,8 @@
 package com.notificaclima.notificacao_clima.scheduler;
 
-import com.notificaclima.notificacao_clima.entity.Users;
-import com.notificaclima.notificacao_clima.repository.UsersRepository;
-import com.notificaclima.notificacao_clima.services.CptecClientService;
+import com.notificaclima.notificacao_clima.entity.Usuarios;
+import com.notificaclima.notificacao_clima.repository.UsuarioRepository;
+import com.notificaclima.notificacao_clima.services.CptecService;
 import com.notificaclima.notificacao_clima.services.NotificacaoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,20 +18,20 @@ import java.util.List;
 public class NotificacaoScheduler {
 
     @Autowired
-    private UsersRepository userRepository;
+    private UsuarioRepository userRepository;
 
     @Autowired
     private NotificacaoService notificacaoService;
 
-    private static final Logger log = LoggerFactory.getLogger(CptecClientService.class);
+    private static final Logger log = LoggerFactory.getLogger(CptecService.class);
 
     @Scheduled(cron = "0 * * * * *")
     public void verificarAgendamentos() {
         LocalTime agora = LocalTime.now().truncatedTo(ChronoUnit.MINUTES);
 
-        List<Users> usuarios = userRepository.findAll();
-        for (Users user : usuarios) {
-            if (user.getIsOpt() && agora.equals(user.getHorarioNotificacao())) {
+        List<Usuarios> usuarios = userRepository.findAll();
+        for (Usuarios user : usuarios) {
+            if (user.getOpt() && agora.equals(user.getHorarioNotificacao())) {
                 try {
                     notificacaoService.enviarNotificacao(user);
                 } catch (Exception e) {

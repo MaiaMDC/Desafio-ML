@@ -1,10 +1,10 @@
 package com.notificaclima.notificacao_clima.test_services;
 
-import com.notificaclima.notificacao_clima.entity.Users;
+import com.notificaclima.notificacao_clima.entity.Usuarios;
 import com.notificaclima.notificacao_clima.dto.NotificacaoClimaDTO;
 import com.notificaclima.notificacao_clima.dto.PrevisaoDTO;
-import com.notificaclima.notificacao_clima.services.ConverterService;
-import com.notificaclima.notificacao_clima.services.CptecClientService;
+import com.notificaclima.notificacao_clima.services.ConversorService;
+import com.notificaclima.notificacao_clima.services.CptecService;
 import com.notificaclima.notificacao_clima.services.NotificacaoService;
 import com.notificaclima.notificacao_clima.cptec.model.Cidade;
 import com.notificaclima.notificacao_clima.cptec.model.PrevisaoCidade;
@@ -33,38 +33,38 @@ class NotificacaoServiceTest {
     private SimpMessagingTemplate messagingTemplate;
 
     @Mock
-    private CptecClientService cptecClient;
+    private CptecService cptecClient;
 
     @Mock
-    private ConverterService converter;
+    private ConversorService converter;
 
     @InjectMocks
     private NotificacaoService notificacaoService;
 
     @Test
     void deveMontarENotificarUsuarioCorretamente() throws Exception {
-        Users user = new Users();
+        Usuarios user = new Usuarios();
         user.setNome("João");
         user.setCidade("Santos");
-        user.setIsOpt(true);
-        user.setIsCoastline(true);
+        user.setOpt(true);
+        user.setLitoral(true);
 
         Cidade cidade = new Cidade();
         cidade.setId(123);
         cidade.setNome("Santos");
 
-        when(cptecClient.findCity("Santos")).thenReturn(List.of(cidade));
+        when(cptecClient.buscaCidade("Santos")).thenReturn(List.of(cidade));
 
         PrevisaoDTO previsao = new PrevisaoDTO();
         previsao.setData("2025-05-20");
         previsao.setMinima(15);
         previsao.setMaxima(25);
         previsao.setTempo("Ensolarado");
-        when(cptecClient.getPrevisaoByCityId(123)).thenReturn(new PrevisaoCidade());
+        when(cptecClient.previsaoPelaCidadeId(123)).thenReturn(new PrevisaoCidade());
         when(converter.convertToForecastDTOs(any())).thenReturn(List.of(previsao));
 
         PrevisaoOndas ondas = new PrevisaoOndas();
-        when(cptecClient.getPrevisaoOndas(123)).thenReturn(ondas);
+        when(cptecClient.previsaoOndas(123)).thenReturn(ondas);
 
         notificacaoService.enviarNotificacao(user);
 

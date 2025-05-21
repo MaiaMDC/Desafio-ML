@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ConverterService {
+public class ConversorService {
 
     public List<PrevisaoDTO> convertToForecastDTOs(PrevisaoCidade previsaoCidade) {
         return previsaoCidade.getPrevisoes()
