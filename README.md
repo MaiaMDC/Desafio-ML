@@ -22,9 +22,9 @@ Abaixo o diagrama do fluxo de registro, chamadas de API referente a aplicação 
 
 
 <h2 align="center">Requisitos</h2>
-Java 17+
-Maven 3.9.9
-Docker 25.0.4
+- Java 17+
+- Maven 3.9.9
+- Docker 25.0.4
 
 
 <h2 align="center">Como rodar o projeto</h2>
