@@ -5,6 +5,7 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Unmarshaller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
@@ -21,14 +22,19 @@ import org.springframework.retry.annotation.Recover;
 @Service
 public class CptecClientService {
 
+    @Value("${cptec.api.base-url}")
+    private String baseUrl;
+
+    @Value("${cptec.api.previsao-url}")
+    private String previsaoUrl;
+
     private final RestTemplate restTemplate = new RestTemplate();
 
     private static final Logger log = LoggerFactory.getLogger(CptecClientService.class);
 
-
     @Retryable(value = { Exception.class }, maxAttempts = 3, backoff = @Backoff(delay = 5000))
     public List<Cidade> findCity(String nome) throws Exception {
-        String url = "http://servicos.cptec.inpe.br/XML/listaCidades?city=" + URLEncoder.encode(nome, StandardCharsets.UTF_8);
+        String url = baseUrl + URLEncoder.encode(nome, StandardCharsets.UTF_8);
 
         JAXBContext context = JAXBContext.newInstance(ListaCidades.class);
         Unmarshaller unmarshaller = context.createUnmarshaller();
@@ -47,7 +53,7 @@ public class CptecClientService {
 
     @Retryable(value = { Exception.class }, maxAttempts = 3, backoff = @Backoff(delay = 5000))
     public PrevisaoCidade getPrevisaoByCityId(int cidadeId) throws Exception {
-        String url = "http://servicos.cptec.inpe.br/XML/cidade/" + cidadeId + "/previsao.xml";
+        String url = previsaoUrl + cidadeId + "/previsao.xml";
 
         URL apiUrl = new URL(url);
         JAXBContext jaxbContext = JAXBContext.newInstance(PrevisaoCidade.class, PrevisaoDia.class);
@@ -63,7 +69,7 @@ public class CptecClientService {
 
     @Retryable(value = { Exception.class }, maxAttempts = 3, backoff = @Backoff(delay = 5000))
     public PrevisaoOndas getPrevisaoOndas(int cidadeId) throws Exception {
-        String url = "http://servicos.cptec.inpe.br/XML/cidade/" + cidadeId + "/dia/0/ondas.xml";
+        String url = previsaoUrl + cidadeId + "/dia/0/ondas.xml";
 
         JAXBContext context = JAXBContext.newInstance(PrevisaoOndas.class);
         Unmarshaller unmarshaller = context.createUnmarshaller();
