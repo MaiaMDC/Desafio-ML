@@ -40,4 +40,4 @@ Abaixo o diagrama do fluxo de registro, chamadas de API referente a aplicação 
 
 Abaixo um arquivo das collections utilizadas para registro dos usuarios e edição e consumo das informações da Ctpec.
 
-[Mercado Livre.postman_collection.json](https://github.com/user-attachments/files/20325127/Mercado.Livre.postman_collection.json)
+[Mercado Livre Desafio.json](https://github.com/user-attachments/files/20371534/Mercado.Livre.Desafio.json)
